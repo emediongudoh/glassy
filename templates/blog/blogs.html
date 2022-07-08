@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Blogs | {{ block.super }} {% endblock title %}
+
+{% block content %}
+
+<!-- heading section starts -->
+
+<section class="heading">
+    <h1>our blogs</h1>
+    <p><a href="{% url 'home' %}">home</a> >> blogs</p>
+</section>
+
+<!-- heading section ends -->
+
+
+<!-- blogs section starts -->
+
+<section class="blogs">
+
+    <h1 class="title">our daily posts</h1>
+
+    <div class="box-container">
+
+        {% for post in posts %}
+            <div class="box">
+                <div class="image">
+                    <img src="{{ post.image.url }}" alt="">
+                </div>
+                <div class="content">
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.body|truncatechars:50 }}</p>
+                    <a href="#" class="btn">read more</a>
+                    <div class="icons">
+                        <a href="#"><i class="fas fa-clock"></i> {{ post.date_published|date:'F d, Y' }}</a>
+                        <a href="#"><i class="fas fa-user"></i> by {{ post.author.name }}</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+</section>
+
+<!-- blogs section ends -->
+
+{% endblock content %}

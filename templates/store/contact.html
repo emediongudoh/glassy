@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Contact | {{ block.super }} {% endblock title %}
+
+{% block content %}
+
+<!-- heading section starts -->
+
+<section class="heading">
+    <h1>contact us</h1>
+    <p><a href="{% url 'home' %}">home</a> >> contact</p>
+</section>
+
+<!-- heading section ends -->
+
+
+<!-- contact section starts -->
+
+<section class="contact">
+
+    <h1 class="title">get in touch</h1>
+
+    <div class="row">
+
+        <form action="">
+            <input type="text" class="box" placeholder="Your name">
+            <input type="email" class="box" placeholder="Your email">
+            <input type="number" class="box" placeholder="Your number">
+            <textarea name="" id="" cols="30" rows="10" placeholder="Your message"></textarea>
+            <input type="submit" value="Send Message" class="btn">
+        </form>
+
+        <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127184.15290835447!2d7.859344355646822!3d5.021551277672379!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x105d57c1f8da6a51%3A0xe71e33ab2276d451!2sUyo!5e0!3m2!1sen!2sng!4v1657160508707!5m2!1sen!2sng" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+    </div>
+
+</section>
+
+<!-- contact section ends -->
+
+{% endblock content %}

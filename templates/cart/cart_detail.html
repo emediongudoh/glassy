@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load cart_tag %}
+
+{% block title %} Cart | {{ block.super }} {% endblock title %}
+
+{% block content %}
+
+<!-- heading section starts -->
+
+<section class="heading">
+    <h1>shopping cart</h1>
+    <p><a href="{% url 'home' %}">home</a> >> cart</p>
+</section>
+
+<!-- heading section ends -->
+
+
+<!-- cart section starts -->
+
+<section class="shopping-cart">
+
+    <h1 class="title">your products</h1>
+
+    <div class="box-container">
+
+        {% for key,value in request.session.cart.items %}
+            <div class="box">
+                <a href="{% url 'item_clear' value.product_id %}"><i class="fas fa-times"></i></a>
+                <img src="{{ value.image }}" alt="">
+                <div class="content">
+                    <h3>{{ value.name }}</h3>
+                    <form action="">
+                        <span>quantity :</span>
+                        <a href="{% url 'item_increment' value.product_id %}" class="fas fa-plus"></a>
+                        <div class="quantity">{{ value.quantity }}</div>
+                        {% if value.quantity > 1 %}
+                            <a href="{% url 'item_decrement' value.product_id %}" class="fas fa-minus"></a>
+                        {% endif %}
+                    </form>
+                    <div class="price">NGN {{ value.price|multiply:value.quantity|floatformat:2 }}</div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+    {% if request.session.cart.items %}
+        <a href="{% url 'cart_clear' %}" class="btn">Clear Cart</a>
+    {% endif %}
+
+    <h1 class="title">checkout cart</h1>
+
+    <div class="cart-total">
+        <h3>total : <span>NGN {{ cart_total_amount|floatformat:2 }}</span></h3>
+        <form>
+            <script src="https://js.paystack.co/v1/inline.js"></script>
+            <button type="button" onclick="payWithPaystack()" class="btn"> proceed to payment </button> 
+        </form>
+    </div>
+
+    <script>
+        function payWithPaystack(){
+            var handler = PaystackPop.setup({
+                key: 'pk_test_9f3b538742f7d43442f51bab12c8131cf53a494b',
+                email: '{{ request.user.email }}',
+                amount: '{{ cart_total_amount|floatformat:2 }}' * 100.00,
+                callback: function(response){
+                    alert('success. transaction ref is ' + response.reference);
+                },
+                onClose: function(){
+                    alert('window closed');
+                }
+            });
+            handler.openIframe();
+        }
+    </script>
+
+</section>
+
+<!-- cart section ends -->
+
+{% endblock content %}

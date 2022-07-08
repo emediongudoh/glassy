@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %} Products | {{ block.super }} {% endblock title %}
+
+{% block content %}
+
+<!-- heading section starts -->
+
+<section class="heading">
+    <h1>our products</h1>
+    <p><a href="{% url 'home' %}">home</a> >> products</p>
+</section>
+
+<!-- heading section ends -->
+
+
+<!-- products section starts -->
+
+<section class="products">
+
+    <h1 class="title">featured products</h1>
+
+    <div class="box-container">
+
+        {% for product in products %}
+            <div class="box">
+                <div class="image">
+                    <div class="icons">
+                        <a href="{% url 'cart_add' product.id %}" class="fas fa-shopping-cart"></a>
+                        <a href="#" class="fas fa-share"></a>
+                        <a href="#" class="fas fa-eye"></a>
+                    </div>
+
+                    <img src="{{ product.image.url }}" alt="">
+                </div>
+                <div class="content">
+                    <h3>{{ product.name }}</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="price">NGN {{ product.price|floatformat:2 }}</div>
+                </div>
+            </div>
+        {% endfor %}
+
+</section>
+
+<!-- products section ends -->
+
+{% endblock content %}
