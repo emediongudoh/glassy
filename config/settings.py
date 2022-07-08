@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'livereload',
     'whitenoise.runserver_nostatic',
-    'django.contrib.staticfiles',
     'cloudinary_storage',
+    'django.contrib.staticfiles',
     'cloudinary',
 
     # 3rd Party
